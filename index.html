@@ -1,0 +1,162 @@
+
+<html lang="fr">
+    <head>
+        <title>Kasse</title>
+        <script>
+            function increaseValueBy(amount) {
+                // Get the element with the ID "sum"
+                var sumElement = document.getElementById("sum");
+
+                // Get the current value of the element
+                var currentValue = parseFloat(sumElement.innerText);
+
+                // Increase the value by the given amount
+                // Update the element with the new value
+                sumElement.innerText = (currentValue + amount).toFixed(2);
+            }
+        </script>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                background: #E7EBED;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            .element {
+                background: #CED7DB;
+                padding: 20px;
+                margin: 3px;
+                width: 150px;
+                text-align: center;
+                box-sizing: border-box;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                margin: 20px;
+                width: 60%;
+            }
+
+            #sum {
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="element" id="Baguette" onclick="increaseValueBy(1.18)">
+                Baguette
+            </div>
+            <div class="element" id="Petit Pain" onclick="increaseValueBy(0.31)">
+                Petit Pain
+            </div>
+            <div class="element" id="Croissant" onclick="increaseValueBy(0.64)">
+                Croissant
+            </div>
+            <div class="element" id="Pain au Chocolat" onclick="increaseValueBy(1.23)">
+                Pain au Chocolat
+            </div>
+            <div class="element" id="Pain" onclick="increaseValueBy(4.13)">
+                Pain
+            </div>
+            <div class="element" id="Quiche" onclick="increaseValueBy(2.09)">
+                Quiche
+            </div>
+            <div class="element" id="Crêpe" onclick="increaseValueBy(2.5)">
+                Crêpe
+            </div>
+            <div class="element" id="Sandwich" onclick="increaseValueBy(3.54)">
+                Sandwich
+            </div>
+        </div>
+        <div class="container">
+            <div class="element" id="Salade" onclick="increaseValueBy(1.69)">
+                Salade
+            </div>
+            <div class="element" id="Tomates" onclick="increaseValueBy(2.89)">
+                Tomates
+            </div>
+            <div class="element" id="Poireau" onclick="increaseValueBy(0.89)">
+                Poireau
+            </div>
+            <div class="element" id="Avocat" onclick="increaseValueBy(.59)">
+                Avocat
+            </div>
+            <div class="element" id="Oignons" onclick="increaseValueBy(1.79)">
+                Oignons
+            </div>
+            <div class="element" id="Pommes de Terre" onclick="increaseValueBy(1.99)">
+                Pommes de Terre
+            </div>
+            <div class="element" id="Champignons" onclick="increaseValueBy(2.37)">
+                Champignons
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="element" id="Framboise" onclick="increaseValueBy(4.44)">
+                Framboise
+            </div>
+
+            <div class="element" id="Ananas" onclick="increaseValueBy(1.69)">
+                Ananas
+            </div>
+
+            <div class="element" id="Pêches" onclick="increaseValueBy(2.78)">
+                Pêches
+            </div>
+
+            <div class="element" id="Fraises" onclick="increaseValueBy(2.29)">
+                Fraises
+            </div>
+
+            <div class="element" id="Orange" onclick="increaseValueBy(0.65)">
+                Orange
+            </div>
+
+            <div class="element" id="Melon" onclick="increaseValueBy(4.59)">
+                Melon
+            </div>
+
+            <div class="element" id="Pommes" onclick="increaseValueBy(2.99)">
+                Pommes
+            </div>
+
+            <div class="element" id="Prune" onclick="increaseValueBy(0.39)">
+                Prune
+            </div>
+
+            <div class="element" id="Mangue" onclick="increaseValueBy(1.49)">
+                Mangue
+            </div>
+
+            <div class="element" id="Bananas" onclick="increaseValueBy(2.59)">
+                Bananas
+            </div>
+
+            <div class="element" id="Citrones" onclick="increaseValueBy(1.44)">
+                Citrones
+            </div>
+
+        </div>
+
+        <div class="container">
+            <div id="sum">
+                0
+            </div>
+            <div class="element" id="Clear" onclick="document.getElementById('sum').innerText = 0">
+                Clear
+            </div>
+        </div>
+    </body>
+
+</html>
