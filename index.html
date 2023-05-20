@@ -1,162 +1,183 @@
-
+<!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <title>Kasse</title>
-        <script>
-            function increaseValueBy(amount) {
-                // Get the element with the ID "sum"
-                var sumElement = document.getElementById("sum");
 
-                // Get the current value of the element
-                var currentValue = parseFloat(sumElement.innerText);
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasse</title>
+</head>
 
-                // Increase the value by the given amount
-                // Update the element with the new value
-                sumElement.innerText = (currentValue + amount).toFixed(2);
-            }
-        </script>
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                align-items: center;
-                background: #E7EBED;
-                font-family: 'Roboto', sans-serif;
-            }
+<!-- fill containers with javascript -->
 
-            .element {
-                background: #CED7DB;
-                padding: 20px;
-                margin: 3px;
-                width: 150px;
-                text-align: center;
-                box-sizing: border-box;
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-            }
+<body>
+    <div class="container pastry-container"></div>
+    <div class="container vegetable-container"></div>
+    <div class="container fruits-container"></div>
+    <div class="controls">
+        <div class="total">Total: 0 €</div>
+        <div class="clear">Clear</div>
+    </div>
+</body>
 
-            .container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-                margin: 20px;
-                width: 60%;
-            }
+<script>
+    /*------------ define what types of food can be sold ------------*/
+    const pastry = {
+        "Baguette": 1.18,
+        "Petit Pain": 0.31,
+        "Croissant": 0.64,
+        "Pain au Chocolat": 1.23,
+        "Pain": 4.13,
+        "Quiche": 2.09,
+        "Crêpe": 2.5,
+        "Sandwich": 3.54
+    };
 
-            #sum {
-                margin: 5px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="element" id="Baguette" onclick="increaseValueBy(1.18)">
-                Baguette
-            </div>
-            <div class="element" id="Petit Pain" onclick="increaseValueBy(0.31)">
-                Petit Pain
-            </div>
-            <div class="element" id="Croissant" onclick="increaseValueBy(0.64)">
-                Croissant
-            </div>
-            <div class="element" id="Pain au Chocolat" onclick="increaseValueBy(1.23)">
-                Pain au Chocolat
-            </div>
-            <div class="element" id="Pain" onclick="increaseValueBy(4.13)">
-                Pain
-            </div>
-            <div class="element" id="Quiche" onclick="increaseValueBy(2.09)">
-                Quiche
-            </div>
-            <div class="element" id="Crêpe" onclick="increaseValueBy(2.5)">
-                Crêpe
-            </div>
-            <div class="element" id="Sandwich" onclick="increaseValueBy(3.54)">
-                Sandwich
-            </div>
-        </div>
-        <div class="container">
-            <div class="element" id="Salade" onclick="increaseValueBy(1.69)">
-                Salade
-            </div>
-            <div class="element" id="Tomates" onclick="increaseValueBy(2.89)">
-                Tomates
-            </div>
-            <div class="element" id="Poireau" onclick="increaseValueBy(0.89)">
-                Poireau
-            </div>
-            <div class="element" id="Avocat" onclick="increaseValueBy(.59)">
-                Avocat
-            </div>
-            <div class="element" id="Oignons" onclick="increaseValueBy(1.79)">
-                Oignons
-            </div>
-            <div class="element" id="Pommes de Terre" onclick="increaseValueBy(1.99)">
-                Pommes de Terre
-            </div>
-            <div class="element" id="Champignons" onclick="increaseValueBy(2.37)">
-                Champignons
-            </div>
-        </div>
-        <div class="container">
+    const vegetables = {
+        "Salade": 1.69,
+        "Tomates": 2.89,
+        "Poireau": 0.89,
+        "Avocat": 0.59,
+        "Oignons": 1.79,
+        "Pommes de Terre": 1.99
+    };
 
-            <div class="element" id="Framboise" onclick="increaseValueBy(4.44)">
-                Framboise
-            </div>
+    const fruits = {
+        "Framboise": 4.44,
+        "Ananas": 1.69,
+        "Pêches": 2.78,
+        "Fraises": 2.29,
+        "Orange": 0.65,
+        "Melon": 4.59,
+        "Pommes": 2.99,
+        "Prune": 0.39,
+        "Mangue": 1.49,
+        "Bananas": 2.59,
+        "Citrones": 1.44
+    }
 
-            <div class="element" id="Ananas" onclick="increaseValueBy(1.69)">
-                Ananas
-            </div>
+    /*------------ containers ------------*/
+    const cpastry = document.querySelector(".pastry-container");
+    const cvegetable = document.querySelector(".vegetable-container");
+    const cfruits = document.querySelector(".fruits-container");
 
-            <div class="element" id="Pêches" onclick="increaseValueBy(2.78)">
-                Pêches
-            </div>
+    /*------------ clear, total ------------*/
+    const totalelement = document.querySelector(".total");
+    const clearelement = document.querySelector(".clear");
 
-            <div class="element" id="Fraises" onclick="increaseValueBy(2.29)">
-                Fraises
-            </div>
+    /*------------ globals ------------*/
+    let total = 0;
+    let order = {};
 
-            <div class="element" id="Orange" onclick="increaseValueBy(0.65)">
-                Orange
-            </div>
+    /*------------ combine for lookup ------------*/
+    const all = { ...pastry, ...vegetables, ...fruits };
 
-            <div class="element" id="Melon" onclick="increaseValueBy(4.59)">
-                Melon
-            </div>
+    /*------------ create dom elements ------------*/
+    function createItem(name, price, parent) {
+        /*------------ create div and fill it with contents ------------*/
+        let item = document.createElement("div");
+        item.className = `item item-${name}`;
+        item.innerHTML = `${name}<br> 0x ${price} €`;
 
-            <div class="element" id="Pommes" onclick="increaseValueBy(2.99)">
-                Pommes
-            </div>
+        item.setAttribute("data-name", name);
+        item.setAttribute("data-price", price);
+        item.addEventListener('click', (ev) => {
+            let n = ev.target.getAttribute("data-name");
+            let p = ev.target.getAttribute("data-price");
+            if (!Object.hasOwn(order, n)) order[n] = 0;
+            order[n] += 1;
+            total += all[n];
+            totalelement.textContent = `Total: ${total.toFixed(2)} €`;
+            ev.target.innerHTML = `${n}<br> ${order[n]}x ${p} €`;
+        });
 
-            <div class="element" id="Prune" onclick="increaseValueBy(0.39)">
-                Prune
-            </div>
+        parent.appendChild(item);
+    }
 
-            <div class="element" id="Mangue" onclick="increaseValueBy(1.49)">
-                Mangue
-            </div>
+    /*------------ initialize UI ------------*/
+    function createUI() {
+        for (const i of Object.entries(pastry)) {
+            createItem(i[0], i[1], cpastry);
+        }
 
-            <div class="element" id="Bananas" onclick="increaseValueBy(2.59)">
-                Bananas
-            </div>
+        for (const i of Object.entries(vegetables)) {
+            createItem(i[0], i[1], cvegetable);
+        }
 
-            <div class="element" id="Citrones" onclick="increaseValueBy(1.44)">
-                Citrones
-            </div>
+        for (const i of Object.entries(fruits)) {
+            createItem(i[0], i[1], cfruits);
+        }
+    }
 
-        </div>
+    /*------------ clear items ------------*/
+    function clearUI() {
+        cpastry.innerHTML = "";
+        cvegetable.innerHTML = "";
+        cfruits.innerHTML = "";
+    }
 
-        <div class="container">
-            <div id="sum">
-                0
-            </div>
-            <div class="element" id="Clear" onclick="document.getElementById('sum').innerText = 0">
-                Clear
-            </div>
-        </div>
-    </body>
+    /*------------ clear event listener ------------*/
+    clearelement.addEventListener('click', (ev) => {
+        total = 0;
+        totalelement.textContent = `Total: 0 €`;
+        order = {};
+        clearUI();
+        createUI();
+    });
+
+    createUI();
+</script>
+
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #E7EBED;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 80%;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .item {
+        padding: 20px;
+        margin: 3px;
+        text-align: center;
+        background: #CED7DB;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .total,
+    .clear {
+        padding: 20px;
+        margin: 3px;
+        min-width: 100px;
+        text-align: center;
+        background: #a2a7a8;
+        user-select: none;
+    }
+</style>
 
 </html>
